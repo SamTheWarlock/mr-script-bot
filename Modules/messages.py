@@ -80,3 +80,21 @@ async def handle(message):
     if current_time >= last_check_time + data.check_cooldown:
         last_check_time = current_time
         await check_punishments(message.guild)
+async def logMessage(oldmessage,message,action):
+    if action == "Deleted":
+        await functions.send_embed(
+            message.guild.get_channel(data.logs_channel),
+            "Message " + action,
+            f"""**Member:** <@{str(message.author.id)}>
+            **Original:** {str(oldmessage)}
+            **Channel:** <#{str(message.channel.id)}>"""
+        )
+    elif action == "Edited":
+        await functions.send_embed(
+            message.guild.get_channel(data.logs_channel),
+            "Message " + action,
+            f"""**Member:** <@{str(message.author.id)}>
+            **Original:** {str(oldmessage)}
+            **New Message:** {str(message.content)}
+            **Channel:** <#{str(message.channel.id)}>"""
+        )
