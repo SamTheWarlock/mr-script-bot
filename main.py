@@ -144,3 +144,19 @@ if data.bot_type == "T": # beta
     client.run(data.test_token)
 elif data.bot_type == "R": # release
     client.run(data.token)
+
+@client.event
+async def on_message_delete(message):
+    if message.author.id == client.user.id:
+        return
+    else:
+        await messages.logMessage(message,message,"Deleted")
+        
+        
+
+@client.event
+async def on_message_edit(before,after):
+    if message.author.id == client.user.id:
+        return
+    else:
+        await messages.logMessage(before,after,"Edited")
